@@ -1,4 +1,3 @@
-# do not forget to check data types and update them
 from django.db import models
 
 
@@ -12,8 +11,8 @@ class Books1(models.Model):
     country = models.CharField(max_length=500)
     mediaType = models.CharField(max_length=500)
     released = models.CharField(max_length=500)
-    characters = models.CharField(max_length=500)
-    povCharacters = models.CharField(max_length=500)
+    characters = models.ManyToManyField('Characters583', related_name='books1')
+    povCharacters = models.ManyToManyField('Characters583', related_name='pov_books1')
 
 
 class Characters583(models.Model):
@@ -29,7 +28,7 @@ class Characters583(models.Model):
     mother = models.CharField(max_length=500)
     spouse = models.CharField(max_length=500)
     allegiances = models.CharField(max_length=500)
-    books = models.ForeignKey(Books1, related_name='chars', on_delete=models.CASCADE)
-    povBooks = models.CharField(max_length=500)
+    books = models.ManyToManyField(Books1, related_name='characters583', blank=True)
+    pov_books = models.ManyToManyField(Books1, related_name='pov_characters583', blank=True)
     tvSeries = models.CharField(max_length=500)
     playedBy = models.CharField(max_length=500)
